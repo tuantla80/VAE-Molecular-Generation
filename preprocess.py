@@ -5,14 +5,6 @@ from tokenizer import OneHotTokenizer
 
 
 if __name__ == '__main__':
-    '''
-    Example output
-    C:\ProgramData\Anaconda3\python.exe C:/Python/VAE/preprocess.py
-    Start at = 2021-06-08 18:45:30.323877
-    SHAPE of array_smiled_tokenized = (249456, 120, 35)
-    Finish at = 2021-06-08 18:50:19.776251
-    Save as npz finish at = 2021-06-08 18:50:49.705657
-    '''
     t0 = datetime.now()
     print(f'Start at = {t0}')
     with open(r'data\zinc_drugs.smi.txt') as f:
