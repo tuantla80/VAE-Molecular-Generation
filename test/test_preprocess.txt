@@ -4,6 +4,12 @@ Example output
     C:\ProgramData\Anaconda3\python.exe C:/Python/VAE/preprocess.py
     Start at = 2021-06-08 18:45:30.323877
 
+    CHARSET used in tokenizer.py module: [' ', '#', '(', ')', '+', '-', '/', '1',
+                                          '2', '3', '4', '5', '6', '7', '8', '=',
+                                          '@', 'B', 'C', 'F', 'H', 'I', 'N', 'O',
+                                          'P', 'S', '[', '\\', ']', 'c', 'l', 'n',
+                                          'o', 'r', 's']
+
     SHAPE of array_smiled_tokenized = (249456, 120, 35)
 
     Finish at = 2021-06-08 18:50:19.776251
