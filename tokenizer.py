@@ -1,8 +1,9 @@
 import numpy as np
 
+# CHARSET is receiced from preprocess.py module
 CHARSET = [' ', '#', '(', ')', '+', '-', '/', '1', '2', '3', '4', '5', '6', '7',
-           '8', '=', '@', 'B', 'C', 'F', 'H', 'I', 'N', 'O', 'P', 'S', '[', '\\', ']',
-           'c', 'l', 'n', 'o', 'r', 's']
+           '8', '=', '@', 'B', 'C', 'F', 'H', 'I', 'N', 'O', 'P', 'S', '[', '\\',
+           ']', 'c', 'l', 'n', 'o', 'r', 's']
 
 
 class OneHotTokenizer():
@@ -80,10 +81,10 @@ class OneHotTokenizer():
         return np.array([self.encode_one_hot(smiles) for smiles in list_smiles])
 
 
-    def decode_one_hot(self, z):
+    def decode_one_hot(self, list_encoded_smiles):
         '''
-        :param z: encoded smiles getting from tokenize()
-        Eg. z =
+        :param list_encoded_smiles: list of encoded smiles getting from tokenize()
+        Eg. list_encoded_smiles =
         [
           # first smiles
           [ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]  # first character in smiles. 'C"
@@ -101,45 +102,43 @@ class OneHotTokenizer():
         z.shape = (3, 120, 35)   # the first index is number of smiles
         :return:
         '''
-        z_decoded = []
-        for smiles_index in range(len(z)):  # run for each smiles
+        list_smiles_get_back = []
+        for smiles_index in range(len(list_encoded_smiles)):  # run for each smiles
             smiles_string = ''
-            for row in range(len(z[smiles_index])):  # run for each row (each encoded character)
-                one_hot = np.argmax(z[smiles_index][row])
+            for row in range(len(list_encoded_smiles[smiles_index])):  # run for each row (each encoded character)
+                one_hot = np.argmax(list_encoded_smiles[smiles_index][row])
                 smiles_string += self.charset[one_hot]
             # End of for row
-            z_decoded.append([smiles_string.strip()])
+            list_smiles_get_back.append([smiles_string.strip()])
         # End of for smiles_index
-        return z_decoded
+        return list_smiles_get_back
 
 
-    @staticmethod
-    def decode_smiles_from_indexes(vec, charset, decode=True):
-        '''
-        :param vec:
-        :param charset: in this code the real charset is np.array
-        Eg 1. charset is CHARSET
-        charset = [' ', '#', ')', '(', '+', '-', '/', '1', '3', '2', '5',
-                   '4', '7', '6', '=', '@', 'C', 'B', 'F', 'I', 'H', 'O',
-                   'N', 'S', '[', ']', '\\', 'c', 'l', 'o', 'n', 's', 'r']
-        Eg 2. If not decode the charset may have
-        charset = [b' ' b'#' b')' b'(' b'+' b'-' b'/' b'1' b'3' b'2' b'5'
-                   b'4' b'7' b'6' b'=' b'@' b'C' b'B' b'F' b'I' b'H' b'O'
-                   b'N' b'S' b'[' b']' b'\\' b'c' b'l' b'o' b'n' b's' b'r']
-        :return:
-            Eg 1.  decode_smiles_from_indexes(vec=np.array([0, 3, 1, 2, 4, 5]),
-                                              charset='abcdef')
-               Since 'abcdef' has indexes 012345,
-               Then vec = [0, 3, 1, 2, 4, 5] will generate a string 'adbcef'
-        '''
-        if decode:
-            try:
-                charset = np.array([v.decode('utf-8') for v in charset])
-            except:
-                pass
-        # End of if
-        return ''.join(map(lambda x: charset[x], vec)).strip()
-
+def decode_smiles_from_indexes(vec, charset=CHARSET, decode=True):
+    '''
+    :param vec:
+    :param charset: in this code the real charset is np.array
+    Eg 1. charset is CHARSET
+    charset = [' ', '#', ')', '(', '+', '-', '/', '1', '3', '2', '5',
+               '4', '7', '6', '=', '@', 'C', 'B', 'F', 'I', 'H', 'O',
+               'N', 'S', '[', ']', '\\', 'c', 'l', 'o', 'n', 's', 'r']
+    Eg 2. If not decode the charset may have
+    charset = [b' ' b'#' b')' b'(' b'+' b'-' b'/' b'1' b'3' b'2' b'5'
+               b'4' b'7' b'6' b'=' b'@' b'C' b'B' b'F' b'I' b'H' b'O'
+               b'N' b'S' b'[' b']' b'\\' b'c' b'l' b'o' b'n' b's' b'r']
+    :return:
+        Eg 1.  decode_smiles_from_indexes(vec=np.array([0, 3, 1, 2, 4, 5]),
+                                          charset='abcdef')
+           Since 'abcdef' has indexes 012345,
+           Then vec = [0, 3, 1, 2, 4, 5] will generate a string 'adbcef'
+    '''
+    if decode:
+        try:
+            charset = np.array([v.decode('utf-8') for v in charset])
+        except:
+            pass
+    # End of if
+    return ''.join(map(lambda x: charset[x], vec)).strip()
 
 
 def test():
@@ -151,25 +150,23 @@ def test():
     print(f'one_hot_index = {one_hot_index}')
 
     smiles = one_hot_tokenizer.pad_smiles(smiles='COc(c1)cccc1C#N')
-    print(f'smiles = {smiles}')
+    print(f'smiles = {smiles} with length = {len(smiles)}')
 
     smiles_encoded = one_hot_tokenizer.encode_one_hot(smiles='COc(c1)cccc1C#N')
-    print('smiles_encoded')
     np.set_printoptions(threshold=np.inf)
-    print(smiles_encoded)
-    print(smiles_encoded.shape)
-    print(len(smiles_encoded))
+    print(f'smiles_encoded = {smiles_encoded}')
+    print(f'smiles_encoded.shape = {smiles_encoded.shape}')
 
-    z = one_hot_tokenizer.tokenize(list_smiles=['COc(c1)cccc1C#N'])
-    print('tokenizer list of Smiles')
-    print(z)
+    list_encoded_smiles = one_hot_tokenizer.tokenize(list_smiles=['COc(c1)cccc1C#N'])
+    print(f'\ntokenizer for a list of Smiles = {list_encoded_smiles}')
+    print(f'list_encoded_smiles.shape = {list_encoded_smiles.shape}')
 
-    z_encoded = one_hot_tokenizer.decode_one_hot(z)
-    print(f'z_encoded = {z_encoded}')
+    list_smiles_get_back = one_hot_tokenizer.decode_one_hot(list_encoded_smiles)
+    print(f'list_smiles_get_back = {list_smiles_get_back}')
 
-    print('decode smiles from indexes')
-    fake_smiles = one_hot_tokenizer.decode_smiles_from_indexes(vec=np.array([0, 3, 1, 2, 4, 5]),
-                                                          charset='abcdef')
+    print('\ndecode smiles from indexes - testing with fake smiles')
+    fake_smiles = decode_smiles_from_indexes(vec=np.array([0, 3, 1, 2, 4, 5]),
+                                             charset='abcdef')
     print(f'fake_smiles = {fake_smiles}')
 
 
