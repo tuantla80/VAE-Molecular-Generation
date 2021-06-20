@@ -1,3 +1,4 @@
+Run on Google colab (free version) with 1 GPU
 #----------------------------------------------------------------------------------------------------------------------
 I. Run first 20 epochs from the beginning
 if __name__ == '__main__':
@@ -10,6 +11,7 @@ if __name__ == '__main__':
     print(f'train_loss = ', train_loss)
 
 OUTPUT:
+Time to run ~ 2 hours
 
 epoch/batch_idx: 0/0	 loss =  549101.3750
 	For testing: The first input smiles of batch=1000 Smiles
@@ -390,4 +392,410 @@ epoch/batch_idx: 19/200	 loss =  84408.9375
 	For testing: The first output smiles of 1000 generated Smiles
 	 [['Cc1ccccc1NC(=O)Cc2nnnCnnnnncccccccccccc22)c1']]
 Average train loss of this epoch = 88.71001434326172
+
 train_loss =  tensor(88.7100, device='cuda:0', grad_fn=<DivBackward0>)
+
+#----------------------------------------------------------------------------------------------------------------------
+II. Run next 20 epochs (from 20 to 39)
+if __name__ == '__main__':
+    time_start = datetime.now()
+    print(f'time_start = {time_start}')
+    train_loss = train(file_path_train_data=os.path.join(path, 'smiles_tokenized.npz'),
+                       path_checkpoint=path,
+                       checkpoint_save='last',
+                       file_path_checkpoint_for_continue_learning=os.path.join(path, 'checkpoint_19.pt'),
+                       batch_size=1000,
+                       epochs=20)
+    print(f'train_loss = ', train_loss)
+    time_end = datetime.now()
+    print(f'time_end = {time_end}')
+    print(f'Total running time = {time_end - time_start}')
+
+OUTPUT:
+Time to run: ~ 2 hours
+
+time_start = 2021-06-20 11:05:18.769672
+device = cuda
+
+epoch/batch_idx: 20/0	 loss =  86797.4844
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['C[C@@H]1CC(OCC2(CS)CC2)C[C@H](C)C1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['C[C@@H]1CC(()CCCCCCCCCCC[C@H]1CCCC']]
+
+epoch/batch_idx: 20/100	 loss =  88030.7656
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=C(NC[C@@H](O)c1ccco1)N[C@@H]1CCCc2ccccc21']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=C(NC[C@@H](O)c1ccccCCCCC@@H]]CCC2cccccc1']]
+
+epoch/batch_idx: 20/200	 loss =  87112.6875
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1cc(C)n(-c2ccc(CN(C)[C@H](CCO)c3ccccc3)cc2)n1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1cc(C)c(-22ccc(NCCC[[@@H](C))cccccccccc)2)cc1']]
+Average train loss of this epoch = 85.86739349365234
+
+epoch/batch_idx: 21/0	 loss =  92199.7812
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1c(C(=O)N2CCC(O)CC2)cnn1-c1ccc(Br)cc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1c(C(=O)NCCCCCCCCCnnncccccccccccccc11']]
+
+epoch/batch_idx: 21/100	 loss =  86884.8750
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CC(C)CCNC(=O)[C@@H](C)S(=O)(=O)c1ccc(C(C)C)cc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CC(C)CCNC(=O)[C@@H](C)C((=O)(==)c1cccc(((())C1']]
+
+epoch/batch_idx: 21/200	 loss =  84790.9609
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1cc2c(nc1C)sc1c(=O)n(C)cnc12']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1cc2ccc11C)cccc(OOOO)O11ccc11']]
+Average train loss of this epoch = 82.6018295288086
+
+epoch/batch_idx: 22/0	 loss =  78186.9062
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['C[C@H](NC(=O)Nc1ccccc1)C(=O)Nc1ccc(F)cc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['C[C@H](NC(=O)Nc1ccccc1CC(=O)Nc1cccccccc1']]
+
+epoch/batch_idx: 22/100	 loss =  76380.5000
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CC[C@H](C)NC(=O)c1cc2cc3ccc(C)cc3nc2s1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CC[C@H]1C)NC(=O)c2ccccccccccccccccccc1']]
+
+epoch/batch_idx: 22/200	 loss =  75462.5078
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=C(CCCCc1ccccc1)N1CCOC[C@H](CO)C1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=C(CCCCc1ccccc1))1CCCC[C@HH]CCCCC1']]
+Average train loss of this epoch = 79.76438903808594
+
+epoch/batch_idx: 23/0	 loss =  78610.2656
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COc1ccc(C(=O)N[C@H]2C[C@@H](Cc3cc(C[NH+](C)C)on3)C2(C)C)cc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COc1ccc(C(=O)N[CC@]2CC[C@@H](C3cccccccc((((((((CCCCCCCC)))c1']]
+
+epoch/batch_idx: 23/100	 loss =  74103.9297
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COc1ccc(S(=O)(=O)Nc2ccc(Nc3ccc(-n4ccc(C)n4)nn3)cc2)cc1C']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COc1ccc(S(=O)(=O)Nc2ccccccccccccccccccccccccccc)cc2ccc1']]
+
+epoch/batch_idx: 23/200	 loss =  74847.5469
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=C([O-])[C@H]1C=C[C@@H](NS(=O)(=O)c2ccccc2)C1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=C([O-])[C@H]1CCC[C@@H](NS=O))=O)cccccccc2cc11']]
+Average train loss of this epoch = 76.53282928466797
+
+epoch/batch_idx: 24/0	 loss =  75010.1484
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=C(N[C@H]1CCN(c2ccccc2)C1=O)c1c[nH]c2cccc(F)c12']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=C(N[C@H]1CCCCc2ccccc2C(CO)Nc1nnncccccccccccccc']]
+
+epoch/batch_idx: 24/100	 loss =  74674.5391
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1sc2ncn([C@@H](C)[C@@H](C)C(=O)NN)c(=O)c2c1C']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1nccncc1[C@@H](C)[C@@H](C)C(=O)))CcccCCC))C1']]
+
+epoch/batch_idx: 24/200	 loss =  80144.3359
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CC[NH+](CC)CCN1C(N)=[NH+]C[C@@H]1c1cccc(F)c1F']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CC[NH+](C)CCCCNNNN)[N+]][C@@@H]()c11cccc)cc1']]
+Average train loss of this epoch = 74.16825103759766
+
+epoch/batch_idx: 25/0	 loss =  73397.0391
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COc1ccc(CCNC(C)=O)cc1S(=O)(=O)N1C[C@H]2CCCC[C@H]2C1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COc1ccc(CCCCC(C(=O)cc(C(=O)NC)[[C@H]]CCCCC@@H]CCC11']]
+
+epoch/batch_idx: 25/100	 loss =  67908.0859
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1cccc(C(=O)[O-])c1NC(=O)N[C@H]1CCCC1(C)C']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1cccc(C(=O)[O-])N1CC==O)[CC@H](CCCCCCCC1']]
+
+epoch/batch_idx: 25/200	 loss =  68641.2578
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CS(=O)(=O)N1N=C(c2ccccc2)C[C@@H]1c1cccc([N+](=O)[O-])c1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CS(=O)(=O)N1CCNCc2ccccc2)C[C@@H](c1cccccccc((cccccccccc1']]
+Average train loss of this epoch = 72.89092254638672
+
+epoch/batch_idx: 26/0	 loss =  74082.0547
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['[NH3+][C@H]1CCN(Cc2cc(=O)c3cc(F)ccc3[nH]2)C1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['[NH3+][C@H]1CCN((c2c(((OOcccccccccccccc2H]1']]
+
+epoch/batch_idx: 26/100	 loss =  80454.4922
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Nc1oc2ccc(F)cc2c(=O)c1[C@@H]1N[C@H](C(=O)[O-])CS1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Nc1cccc1-(F)ccc((=O)c11[C@@H]1C[[@@@HHHHCCCC))11']]
+
+epoch/batch_idx: 26/200	 loss =  68277.3438
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=c1cc(NCc2ccc3c(c2)OCCO3)cnn1Cc1ccccc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=c1cc(CCCc2ccc(F)c(CCC=O)C111cccccccc1']]
+Average train loss of this epoch = 71.12791442871094
+
+epoch/batch_idx: 27/0	 loss =  70618.0859
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CN(CCS(C)(=O)=O)[C@H]1CCCCC[C@@H]1C#N']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CN(CC(())(=OOOO[C@@H]1CCCCCC@@H]1CCC']]
+
+epoch/batch_idx: 27/100	 loss =  72623.7734
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCn1nc(C)c2nc([C@@H](C)Cl)n(C)c21']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CCc1nc(Clc2nc([C@@H](C)C())))C)cc1']]
+
+epoch/batch_idx: 27/200	 loss =  64288.0117
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COc1cccc(CCNC(=O)[C@H]2CCCN(C(=O)NC3CC3)C2)c1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COc1cccc(CCNC(=O)[C@H]2CCCNCC((OOCCCCCCC22)c1']]
+Average train loss of this epoch = 67.73567962646484
+
+epoch/batch_idx: 28/0	 loss =  66785.3438
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CC[NH+](Cc1ccnc2ccccc12)CC1CC[NH2+]CC1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CC[NH2+(Cc1cccccccccc21CCCCCCC[NHHH]11']]
+
+epoch/batch_idx: 28/100	 loss =  68226.9375
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCC(CC)([C@@H](Cc1ccc(O)cc1)NC)[NH+](C)C']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CCC(CC))[C@@H](Cc1ccc(O)cc1)N[[NH+(()))C']]
+
+epoch/batch_idx: 28/200	 loss =  66298.1797
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCOc1ccc(C[NH+](Cc2ccc(C#N)cc2)C(C)C)nc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CCOc1ccc(C[NH+](Cc2ccc(Cl)c(C))CCCCC))c1']]
+Average train loss of this epoch = 65.83261108398438
+
+epoch/batch_idx: 29/0	 loss =  65716.8906
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=S(=O)(c1cn[nH]c1)N1CCC[C@H](c2cncc(-c3cccc(Cl)c3)n2)C1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=S(=O)(c1cn[nH]c1NN1CCC[C@H](c2ccc(cccccccccccccccc)2)CC1']]
+
+epoch/batch_idx: 29/100	 loss =  63832.6367
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1cc(OCC(=O)NCc2ccc(C(N)=O)o2)ccc1C(C)C']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1cc(OCC(=O)NCc2ccc(C(C(=O)cccccCCCCCCCC']]
+
+epoch/batch_idx: 29/200	 loss =  61638.8086
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCNS(=O)(=O)c1cc(C(=O)Nc2ccc(S(N)(=O)=O)cc2)ccc1OC']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CNNN(==O(=O)c1cc(N(==)Nc2ccc(S(=O((O))))))ccc2)cc1']]
+Average train loss of this epoch = 64.54158020019531
+
+epoch/batch_idx: 30/0	 loss =  63153.8359
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1c(C[NH2+][C@H](C)Cn2ccnc2)cnn1C']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1c(C[NH2+][C@H](C)Ccc2ccccc2)nn1']]
+
+epoch/batch_idx: 30/100	 loss =  57186.8828
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CC(C)Cn1ccnc(NCCCc2nc3ccccc3s2)c1=O']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CC(C)Cn1nncc(CCCCCc2nc3cccc33))))n1']]
+
+epoch/batch_idx: 30/200	 loss =  61873.6641
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COCCNC(=O)C1C[C@H](C)O[C@H](C)C1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COCCNC(=O)C1C[C@H]1C)O[C@H]1C)C1']]
+Average train loss of this epoch = 62.77192687988281
+
+epoch/batch_idx: 31/0	 loss =  67280.7422
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCCc1cc(N2CC[NH2+]CC2)c2ccc(OC)cc2[nH+]1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CCCc1ccc(N2C[NH2]2CCCc2ccccc2))cc2)[[O]]']]
+
+epoch/batch_idx: 31/100	 loss =  58973.6719
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1nnc(-c2ccc(S(=O)(=O)NCc3ccccc3Cl)o2)o1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1nnc(-c2ccc(S(=O)(=O)NCc3ccccc3))c2)cc1']]
+
+epoch/batch_idx: 31/200	 loss =  63702.8633
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CC1CCC(NC(=O)N(C)CC[C@@H]2CCCC[NH+]2C)CC1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CC(C)CCNC(=O)N1CCCC[C@@H]2CCCC[CHH]2CCCC1']]
+Average train loss of this epoch = 59.831546783447266
+
+epoch/batch_idx: 32/0	 loss =  56739.6016
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['C[C@H]1CCCCN1C(=O)CN1CC[NH+](CC(=O)Nc2ccccc2SCC#N)CC1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['C[C@H]1CCCCN1C(=O)N1CCC[NH+]1CC(=ONNc2cccccccccc22)CC1']]
+
+epoch/batch_idx: 32/100	 loss =  58274.3984
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COc1ccc(C(=O)c2ccccc2)c(Cl)c1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COc1ccc(C(=O)c2ccccc2))(C))c1']]
+
+epoch/batch_idx: 32/200	 loss =  60494.8984
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CN(C)c1nc2cc(NC(=O)NNc3ccccc3Cl)ccc2o1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CN(C)c1ccccc(NC(=O)NCc3ccccc3Cl)ccccc1']]
+Average train loss of this epoch = 59.33791732788086
+
+epoch/batch_idx: 33/0	 loss =  65210.7969
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['C[C@@H](CO)CSC[C@@](N)(C#N)c1ccccc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['C[C@@H](CO)SCC[C@@](()NC())c1ccccc1']]
+
+epoch/batch_idx: 33/100	 loss =  56310.0664
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCc1ccc(Nc2nn[nH]c2C(=O)NCc2cc(F)cc(F)c2)cc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CCc1ccc(-c2nnnH]]((C(=O)NCc2cc(F)cccFcc2))cc1']]
+
+epoch/batch_idx: 33/200	 loss =  58051.6836
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CC[C@@H]1CCN(C(=O)c2cnc3ccc(C)cn23)C1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CC[C@@H]1CCN(C(=O)c2cc3cccc(C))c32)C1']]
+Average train loss of this epoch = 57.12770462036133
+
+epoch/batch_idx: 34/0	 loss =  53829.8828
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COc1ccc(C(=O)N[C@H]2C[C@@H](Cc3cc(C[NH+](C)C)on3)C2(C)C)cc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COc1ccc(C(=O)N[C@H]2C[C@@H](Cc3cc(()Nn++]))))))))))CCCCC))c1']]
+
+epoch/batch_idx: 34/100	 loss =  53062.4414
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCn1cnnc1[C@@H]1CCCN(C(=O)Nc2ccc(OC)cc2)C1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CCc1nnnc1[C@@H]1CCCN1C(=O)Nc2ccc(OO))22)C1']]
+
+epoch/batch_idx: 34/200	 loss =  54553.9570
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['C#CCOCC1CCN(C(=O)Cc2noc3ccccc23)CC1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COC1CCCCCCN(C(=O)c2nn(-c3cccc32)CC1']]
+Average train loss of this epoch = 55.544212341308594
+
+epoch/batch_idx: 35/0	 loss =  54523.2773
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COc1ccc(C[NH+](C)Cc2nc(-c3cnccn3)no2)c2cccnc12']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COc1ccc(C[NH+](C)Cc2nc(--3cccc33)n22cccc2)cc1']]
+
+epoch/batch_idx: 35/100	 loss =  52108.0000
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COc1cc([C@@H]2CC(=O)Nc3c2ccc2ccccc32)c(Cl)cc1OCC(N)=O']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COc1cc([C@@H]2CC(=O)Nc2ccccccccccccccccccCCCCCCCCCCCC']]
+
+epoch/batch_idx: 35/200	 loss =  57665.6406
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCOCc1ccc(NC(=O)Cc2csc(-c3nc[nH]n3)n2)cc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CCOCc1ccc(NC(=O)Cc2cnc--c3cc[nH]]3))c))c11']]
+Average train loss of this epoch = 54.69501876831055
+
+epoch/batch_idx: 36/0	 loss =  51212.3477
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=C(Cc1ccc([N+](=O)[O-])cc1)NCC1(O)CCOCC1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=C(Cc1ccc([N+](=O)[O-])cc1)N1CCCCCCCCCC1']]
+
+epoch/batch_idx: 36/100	 loss =  56214.4258
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CSc1ccc(NC(=O)C(=O)N[C@H](C)CC[NH+](C)C)cn1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CSc1ccc(NC(=O)C(=O)N[C@H](C)CC[NH+]())C))cc1']]
+
+epoch/batch_idx: 36/200	 loss =  47735.8242
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=C(COc1c(Cl)cc(Cl)cc1Br)Nc1ccc(C(=O)N2CCCC2)cc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=C(COc1c(Cl)cc(Cl)cc1)))Nc1ccc(C(=O)N2CCCC)CC1']]
+Average train loss of this epoch = 53.129615783691406
+
+epoch/batch_idx: 37/0	 loss =  56263.3555
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=C(Cn1nc([N+](=O)[O-])nc1Br)N1CCCCC1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=C(Cn1nc([N+](=O)[O-])cc1111111CCCC1']]
+
+epoch/batch_idx: 37/100	 loss =  50751.2383
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COC(=O)c1ccc(CN2CCO[C@@H]3CCCC[C@@H]32)nc1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COC(=O)c1ccc(CN2CCC[C@@H]3CCCC[C@@H]3C)c1']]
+
+epoch/batch_idx: 37/200	 loss =  49217.3242
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1ccc(CNC(=O)CSc2ccc(F)cc2)n1C']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1ccc(CNC(=O)CSc2ccc(F)cc2))11']]
+Average train loss of this epoch = 50.681175231933594
+
+epoch/batch_idx: 38/0	 loss =  52973.1367
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['O=C1/C(=C/c2cc(O)c(O)c(Cl)c2)Cc2ccccc21']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['O=C1/C(=C/c2cc(O)cc(OCc(C)c22cc2ccccc221']]
+
+epoch/batch_idx: 38/100	 loss =  47861.2695
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCOC(=O)C[C@H](C)CNC(=O)c1cn2cccnc2n1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CCOC(=O)C[C@H](C)CNC(=O)c1cc22cccc221']]
+
+epoch/batch_idx: 38/200	 loss =  49913.9375
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['COc1ccc(-c2cc3c(=O)n(CC(=O)Nc4ccc(C)c(Cl)c4)ccn3n2)cc1OC']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['COc1ccc(-c2ccc((=O))(CC(=O)Nc4ccc(C))c(C)))))cc))c2)ccc']]
+Average train loss of this epoch = 50.47379684448242
+
+epoch/batch_idx: 39/0	 loss =  51404.5508
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Nc1nc(N2CCC[C@H]2[C@@H]2CCC[NH2+]2)ccc1[N+](=O)[O-]']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['[11cc(N2CCC[C@H]2[C@@H]3CCC[NH2+]ccccc([N+]===)[C1']]
+
+epoch/batch_idx: 39/100	 loss =  45900.6406
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['CCc1noc(C)c1C(=O)N1CCC[C@@H]1c1ncc2c(n1)CCN(C(C)=O)C2']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['CCc1noc(C)c1C(=O)N1CCC[C@@H]1c1ccc(c)c1)CCCCCCCCCCCC2']]
+
+epoch/batch_idx: 39/200	 loss =  49041.0664
+	For testing: The first input smiles of batch=1000 Smiles
+	 [['Cc1ccccc1NC(=O)Cc1nc(Cn2nnc(-c3ccccc3)n2)cs1']]
+	For testing: The first output smiles of 1000 generated Smiles
+	 [['Cc1ccccc1NC(=O)Cn1nc(Cnnnnc(-c3ccccc3)o22)1']]
+Average train loss of this epoch = 48.93034362792969
+train_loss =  tensor(48.9303, device='cuda:0', grad_fn=<DivBackward0>)
+time_end = 2021-06-20 13:07:18.786061
+Total running time = 2:02:00.016389
