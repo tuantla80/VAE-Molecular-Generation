@@ -60,7 +60,7 @@ class OneHotTokenizer():
         Eg 1. smiles_encode = encode_one_hot(smiles='COc(c1)cccc1C#N')
               Output: smiles_encode =
               [  [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]  # at position 1 <-> 'C'
-                 [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0]  # at position 1 <-> O
+                 [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0]  # at position 1 <-> 'O'
                  [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
                  [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
                  [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
@@ -86,7 +86,7 @@ class OneHotTokenizer():
         :param list_encoded_smiles: list of encoded smiles getting from tokenize()
         Eg. list_encoded_smiles =
         [
-          # first smiles
+          # first smiles: 2D array
           [ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]  # first character in smiles. 'C"
             [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0]  # second character in smiles. 'O'
             [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
@@ -96,36 +96,37 @@ class OneHotTokenizer():
             [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]  # 119th character in smiles.
             [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]  # 120th character in smiles.
           ]
-          # second smiles
-          # third smiles
+          # second smiles: 2D array
+          # third smiles: 2D array
        ]
-        z.shape = (3, 120, 35)   # the first index is number of smiles
-        :return:
+        -> list_encoded_smiles.shape = (3, 120, 35)   # the first index is number of smiles
+        :return: list_smiles_get_back
         '''
         list_smiles_get_back = []
-        for smiles_index in range(len(list_encoded_smiles)):  # run for each smiles
+        for smiles_idx in range(len(list_encoded_smiles)):  # run for each smiles
             smiles_string = ''
-            for row in range(len(list_encoded_smiles[smiles_index])):  # run for each row (each encoded character)
-                one_hot = np.argmax(list_encoded_smiles[smiles_index][row])
+            for row_idx in range(len(list_encoded_smiles[smiles_idx])):  # run for each row index (each encoded character)
+                one_hot = np.argmax(list_encoded_smiles[smiles_idx][row_idx])
                 smiles_string += self.charset[one_hot]
-            # End of for row
+            # End of for row_idx
             list_smiles_get_back.append([smiles_string.strip()])
-        # End of for smiles_index
+        # End of for smiles_idx
         return list_smiles_get_back
 
 
 def decode_smiles_from_indexes(vec, charset=CHARSET, decode=True):
     '''
-    :param vec:
+    :param vec: 1D array.
+        Eg. vec=np.array([0, 3, 1, 2, 4, 5]
     :param charset: in this code the real charset is np.array
-    Eg 1. charset is CHARSET
-    charset = [' ', '#', ')', '(', '+', '-', '/', '1', '3', '2', '5',
-               '4', '7', '6', '=', '@', 'C', 'B', 'F', 'I', 'H', 'O',
-               'N', 'S', '[', ']', '\\', 'c', 'l', 'o', 'n', 's', 'r']
-    Eg 2. If not decode the charset may have
-    charset = [b' ' b'#' b')' b'(' b'+' b'-' b'/' b'1' b'3' b'2' b'5'
-               b'4' b'7' b'6' b'=' b'@' b'C' b'B' b'F' b'I' b'H' b'O'
-               b'N' b'S' b'[' b']' b'\\' b'c' b'l' b'o' b'n' b's' b'r']
+        Eg 1. charset is CHARSET
+        charset = [' ', '#', ')', '(', '+', '-', '/', '1', '3', '2', '5',
+                   '4', '7', '6', '=', '@', 'C', 'B', 'F', 'I', 'H', 'O',
+                   'N', 'S', '[', ']', '\\', 'c', 'l', 'o', 'n', 's', 'r']
+        Eg 2. If not decode the charset may have
+        charset = [b' ' b'#' b')' b'(' b'+' b'-' b'/' b'1' b'3' b'2' b'5'
+                   b'4' b'7' b'6' b'=' b'@' b'C' b'B' b'F' b'I' b'H' b'O'
+                   b'N' b'S' b'[' b']' b'\\' b'c' b'l' b'o' b'n' b's' b'r']
     :return:
         Eg 1.  decode_smiles_from_indexes(vec=np.array([0, 3, 1, 2, 4, 5]),
                                           charset='abcdef')
