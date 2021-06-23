@@ -1,0 +1,80 @@
+C:\ProgramData\Anaconda3\python.exe C:/AI/VAE-Molecular-Generation/models.py
+Run a test for forward VAE
+output: y.shape = torch.Size([64, 120, 35])
+latent space: z_mean.shape = torch.Size([64, 292])
+latent space: z_logvar.shape = torch.Size([64, 292])
+
+
+Model Summary
+VAE(
+  (conv_1): Conv1d(120, 9, kernel_size=(9,), stride=(1,))
+  (conv_2): Conv1d(9, 9, kernel_size=(9,), stride=(1,))
+  (conv_3): Conv1d(9, 10, kernel_size=(11,), stride=(1,))
+  (fc_0): Linear(in_features=90, out_features=435, bias=True)
+  (fc_1): Linear(in_features=435, out_features=292, bias=True)
+  (fc_2): Linear(in_features=435, out_features=292, bias=True)
+  (fc_3): Linear(in_features=292, out_features=292, bias=True)
+  (gru): GRU(292, 501, num_layers=3, batch_first=True)
+  (fc_4): Linear(in_features=501, out_features=35, bias=True)
+  (relu): ReLU()
+  (softmax): Softmax(dim=None)
+)
+
+
+Model Summary like keras.summary()
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv1d-1                [-1, 9, 27]           9,729
+              ReLU-2                [-1, 9, 27]               0
+            Conv1d-3                [-1, 9, 19]             738
+              ReLU-4                [-1, 9, 19]               0
+            Conv1d-5                [-1, 10, 9]           1,000
+              ReLU-6                [-1, 10, 9]               0
+            Linear-7                  [-1, 435]          39,585
+            Linear-8                  [-1, 292]         127,312
+            Linear-9                  [-1, 292]         127,312
+           Linear-10                  [-1, 292]          85,556
+              GRU-11  [[-1, 120, 501], [-1, 2, 501]]               0
+           Linear-12                   [-1, 35]          17,570
+================================================================
+Total params: 408,802
+Trainable params: 408,802
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 0.02
+Forward/backward pass size (MB): 459.58
+Params size (MB): 1.56
+Estimated Total Size (MB): 461.15
+----------------------------------------------------------------
+
+
+Model Summary like keras.summary() with torchinfo
+batch_size = 64
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+VAE                                      --                        --
+├─Conv1d: 1-1                            [64, 9, 27]               9,729
+├─ReLU: 1-2                              [64, 9, 27]               --
+├─Conv1d: 1-3                            [64, 9, 19]               738
+├─ReLU: 1-4                              [64, 9, 19]               --
+├─Conv1d: 1-5                            [64, 10, 9]               1,000
+├─ReLU: 1-6                              [64, 10, 9]               --
+├─Linear: 1-7                            [64, 435]                 39,585
+├─Linear: 1-8                            [64, 292]                 127,312
+├─Linear: 1-9                            [64, 292]                 127,312
+├─Linear: 1-10                           [64, 292]                 85,556
+├─GRU: 1-11                              [64, 120, 501]            4,212,909
+├─Linear: 1-12                           [7680, 35]                17,570
+==========================================================================================
+Total params: 4,621,711
+Trainable params: 4,621,711
+Non-trainable params: 0
+Total mult-adds (G): 32.53
+==========================================================================================
+Input size (MB): 1.08
+Forward/backward pass size (MB): 33.86
+Params size (MB): 18.49
+Estimated Total Size (MB): 53.42
+==========================================================================================
