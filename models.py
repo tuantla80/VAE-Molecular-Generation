@@ -39,14 +39,14 @@ class VAE(nn.Module):
         import torch
 
         batch_size = 64
-        inputs = torch.rand(batch_size, 120, 35)
+        x = torch.rand(batch_size, 120, 35)
 
         # Convolutional layer
-        x = F.relu(nn.Conv1d(120, 9, kernel_size=9)(inputs)) # x.shape=torch.Size([64, 9, 27])
+        x = F.relu(nn.Conv1d(120, 9, kernel_size=9)(x))      # x.shape=torch.Size([64, 9, 27])
         x = F.relu(nn.Conv1d(9, 9, kernel_size=9)(x))        # x.shape=torch.Size([64, 9, 19])
         x = F.relu(nn.Conv1d(9, 10, kernel_size=11)(x))      # x.shape=torch.Size([64, 10, 9])
 
-        # fatten 2 last dimension but keep the batch_size
+        # fatten 2 last dimensions but keep the batch_size
         x = x.view(x.size(0), -1)                            # x.shape=torch.Size([64, 90])
 
         # Fully connected layer
@@ -74,8 +74,8 @@ class VAE(nn.Module):
     def sampling(self, z_mean, z_logvar):
         '''
         It is a parameterization trick to sample to get latent variable Z
-        :param z_mean: a output tensor of a standard fully connected layer from encoder (encode() function)
-        :param z_logvar: a output tensor of a standard fully connected layer from encoder (encode() function)
+        :param z_mean: an output tensor of a standard fully connected layer from encoder (rf. encode() function)
+        :param z_logvar: an output tensor of a standard fully connected layer from encoder (rf. encode() function)
         :return: z (latent variable)
             z = z_mean + std * epsilon
 
@@ -83,10 +83,10 @@ class VAE(nn.Module):
               is filled with random numbers from a normal distribution with mean 0 and
               variance 1. Therefore, input here is just to get shape.
 
-        Example: continue with example in encode() method
-        std = torch.exp(0.5 * z_logvar)                 # std.shape=torch.Size([64, 292])
+        Example: continue with example in encode() method. Note: 64 is batch_size
+        std = torch.exp(0.5 * z_logvar)               # std.shape=torch.Size([64, 292])
         epsilon = 1e-2 * torch.randn_like(input=std)  # epsilon.shape=torch.Size([64, 292])
-        z = z_mean + std * epsilon                        # z.shape=torch.Size([64, 292])
+        z = z_mean + std * epsilon                    # z.shape=torch.Size([64, 292])
         '''
         std = torch.exp(0.5 * z_logvar)
         epsilon = 1e-2 * torch.randn_like(input=std)  # multiply 1e-2 to make epsilon smaller
