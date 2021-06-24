@@ -2,6 +2,8 @@ import torch
 import torch.utils.data
 from torch import nn
 import torch.nn.functional as F
+from torchsummary import summary
+from torchinfo import summary as summary_info
 
 
 class VAE(nn.Module):
@@ -137,8 +139,21 @@ def test_class_VAE():
     print(f'output: y.shape = {y.shape}')
     print(f'latent space: z_mean.shape = {z_mean.shape}')
     print(f'latent space: z_logvar.shape = {z_logvar.shape}')
-        
+
+def model_summary():
+    print('\n\nModel Summary')
+    model = VAE()
+    print(model)
+    print('\n\nModel Summary like keras.summary() using torchsummary')
+    summary(model, input_size=(120, 35))
+
+    print('\n\nModel Summary like keras.summary() using torchinfo')
+    batch_size = 64
+    print(f'batch_size = {batch_size}')
+    summary_info(model, input_size=(batch_size, 120, 35))
+
 
 if __name__ == '__main__':
     print('Run a test for forward VAE')
     test_class_VAE()
+    model_summary()
