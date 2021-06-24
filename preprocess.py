@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     t0 = datetime.now()
     print(f'Start at = {t0}')
-    with open(r'data\zinc_drugs.smi.txt') as f:
+    with open(r'data\zinc_drugs_250K.smi.txt') as f:
         list_smiles = [smiles.strip() for smiles in f]
 
     CHARSET = get_CHARSET(list_smiles)
