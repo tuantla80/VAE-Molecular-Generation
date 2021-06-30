@@ -16,7 +16,7 @@ model.load_state_dict(checkpoint['model'])
 optimizer.load_state_dict(checkpoint['optimizer'])
 
 # Input data
-smiles = 'O=Cc1ccc(O)c(OC)c1' # 'C[C@@H]1CN(C(=O)c2cc(Br)cn2C)CC[C@H]1[NH3+]'
+smiles = 'O=Cc1ccc(O)c(OC)c1' # It is Vanillin
 one_hot_tokenizer = OneHotTokenizer()
 smiles_encoded = one_hot_tokenizer.encode_one_hot(smiles=smiles)  # numpy.ndarray, shape=(120, 35)
 smiles_encoded = torch.Tensor([smiles_encoded])
@@ -48,12 +48,12 @@ gen_smiles = one_hot_tokenizer.decode_one_hot(list_encoded_smiles=[y_0])
 
 print(f'Input SMILES  = {smiles}')
 print(f'Output SMILES = {smiles_recon[0][0]}')
-print(f'gen_smiles    = {gen_smiles[0][0]}')
+print(f'Example of generated smiles = {gen_smiles[0][0]}')
 
 '''
-Example output
-C:\ProgramData\Anaconda3\python.exe C:/AI/VAE-Molecular-Generation/sample.py
+Output example:
 
+C:\ProgramData\Anaconda3\python.exe C:/AI/VAE-Molecular-Generation/sample.py
 type(smiles_encoded = <class 'torch.Tensor'>, smiles_encoded.shape=torch.Size([1, 120, 35])
 type(recon_encoded) = <class 'tuple'>
 smiles_recon_encoded.shape = (1, 120, 35)
@@ -61,5 +61,5 @@ smiles_recon_encoded.shape = (1, 120, 35)
 z_mean.shape = (1, 292), z_logvar.shape=(1, 292)
 Input SMILES  = O=Cc1ccc(O)c(OC)c1
 Output SMILES = O=Cc1ccc(O)c(OC)c1
-gen_smiles    = O=Oc1ccccOO
+Example of generated smiles = O=Oc1cccc1O
 '''
